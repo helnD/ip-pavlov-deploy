@@ -1,0 +1,21 @@
+#!/bin/bash
+
+dockerContainer="ippavlovdevdeployment_app-server_1";
+dockerContainerName="app-server";
+appsettings="appsettings.json"
+
+if [ ! -f $appsettings ]; then 
+    echo "appsettings.json dosn't exist. You should create it by appsettings.template.json";
+    exit 1;
+fi
+
+docker-compose up -d
+docker-compose stop $dockerContainerName
+
+#add configuration to docker image.
+docker cp $appsettings $dockerContainer:app/$appsettings
+
+#deploy
+docker-compose up -d $dockerContainerName
+
+exit 0;

@@ -1,0 +1,17 @@
+version: '3'
+services:
+  postgres-server:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+    ports:
+      - ${PG_PORT}:5432
+
+  app-server:
+    restart: always
+    image: luci3942/ip-pavlov-server
+    ports:
+      - ${SERVER_PORT}:80
+    depends_on:
+      - "postgres-server"
+    tty: true
