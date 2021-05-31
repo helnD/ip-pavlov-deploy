@@ -9,6 +9,9 @@ if [ ! -f $appsettings ]; then
     exit 1;
 fi
 
+docker-compose pull app-server
+docker-compose pull client
+
 docker-compose up -d
 docker-compose stop $dockerContainerName
 

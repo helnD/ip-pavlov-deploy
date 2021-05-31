@@ -15,3 +15,8 @@ services:
     depends_on:
       - "postgres-server"
     tty: true
+
+  client:
+    image: luci3942/ip-pavlov-client
+    ports:
+      - ${CLIENT_PORT}:80
