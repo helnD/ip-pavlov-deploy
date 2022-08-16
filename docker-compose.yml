@@ -1,22 +1,35 @@
 version: '3'
+
 services:
   postgres-server:
     image: postgres
     environment:
       POSTGRES_PASSWORD: ${PG_PASSWORD}
-    ports:
-      - ${PG_PORT}:5432
+    expose:
+      - ${PG_PORT}
 
   app-server:
     restart: always
-    image: luci3942/ip-pavlov-server
-    ports:
-      - ${SERVER_PORT}:80
+    image: server
+    expose:
+      - ${SERVER_PORT}
     depends_on:
       - "postgres-server"
     tty: true
+    volumes:
+      - /../Images:/app/Images
 
   client:
-    image: luci3942/ip-pavlov-client
+    image: client
+    expose:
+      - ${CLIENT_PORT}
+
+  nginx:
+    depends_on:
+      - app-server
+      - client
+    image: proxy
     ports:
-      - ${CLIENT_PORT}:80
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
