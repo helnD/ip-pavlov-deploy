@@ -10,7 +10,7 @@ services:
 
   app-server:
     restart: always
-    image: server
+    image: luci3942/ip-pavlov-server
     expose:
       - ${SERVER_PORT}
     depends_on:
@@ -20,7 +20,7 @@ services:
       - /../Images:/app/Images
 
   client:
-    image: client
+    image: luci3942/ip-pavlov-client
     expose:
       - ${CLIENT_PORT}
 
@@ -28,7 +28,7 @@ services:
     depends_on:
       - app-server
       - client
-    image: proxy
+    image: luci3942/ip-pavlov-proxy
     ports:
       - "80:80"
     volumes:
