@@ -17,7 +17,7 @@ services:
       - "postgres-server"
     tty: true
     volumes:
-      - /../Images:/app/Images
+      - /app/Images
 
   client:
     image: luci3942/ip-pavlov-client
