@@ -1,5 +1,8 @@
 version: '3'
 
+volumes:
+  client-location:
+
 services:
   postgres-server:
     image: postgres
@@ -23,6 +26,8 @@ services:
     image: luci3942/ip-pavlov-client
     expose:
       - ${CLIENT_PORT}
+    volumes:
+      - client-location:/app/build
 
   nginx:
     depends_on:
@@ -32,4 +37,4 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - client-location:/usr/share/nginx/html
