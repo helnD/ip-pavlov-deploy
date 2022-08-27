@@ -2,6 +2,7 @@ version: '3'
 
 volumes:
   client-location:
+  ssl:
 
 services:
   postgres-server:
@@ -38,3 +39,4 @@ services:
       - "80:80"
     volumes:
       - client-location:/usr/share/nginx/html
+      - ssl:/etc/nginx/ssl/
